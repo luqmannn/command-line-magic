@@ -12,9 +12,19 @@ df -h | awk '/^C:\\/ {print $3 "/" $2}'
 free -h | awk '/^Mem:/ {print $3 "/" $2}'
 ```
 
+### Show top 10 largest files (descending order, starting from the current folder, recursively)
+```sh
+find . -printf '%s %p\n'| sort -nr | head -10
+```
+
+### Show top 10 largest folders
+```sh
+du -hsx * | sort -rh | head -10
+```
+
 ### Show IP and broadcast address
 ```sh
-ip addr | grep -m1 inet | sed 's/    //' | sed -e 's/scope global dynamic//g'
+ip addr | grep -m1 inet | sed 's/    //; s/scope global dynamic//g'
 ```
 
 ### Show most memory intensive process
@@ -93,4 +103,22 @@ grep -oP '\[\K[^\]]+'
 ### Find only first occurence in a file
 ```sh
 grep -m1 'searchstring' file_name
+```
+
+## Curl magic
+### Show my external IP address
+```sh
+curl -4 https://icanhazip.com
+```
+
+## Systemctl magic
+### Show all installed services
+```sh
+systemctl list-unit-files --state=enabled --no-pager
+```
+
+## Youtube-dl magic
+### Extract audio track from Youtube video and store as mp3
+```sh
+youtube-dl --extract-audio --audio-format mp3 https://ytvideolink
 ```
