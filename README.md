@@ -2,11 +2,15 @@
 Let's face it, we are mere mortals that keep forgetting everytime we learn something new. So that's why I created this simple cheatsheet. Every time I forget something important, I want to refer back in one single place instead of scouring the Internet for the same answer that I did before. Hope this will help.
 
 ## System magic
-### Show disk usage
+### Show C: disk usage
 ```sh
 df -h | awk '/^C:\\/ {print $3 "/" $2}'
 ```
 
+### Show formatted disk usage for ext4/xfs filesystems
+```
+df -h -t ext4 -t xfs | awk '{print $1, $3 "/" $2}' | column -t
+```
 ### Show memory used/total
 ```sh
 free -h | awk '/^Mem:/ {print $3 "/" $2}'
@@ -24,7 +28,7 @@ du -hsx * | sort -rh | head -10
 
 ### Show IP and broadcast address
 ```sh
-ip addr | grep -m1 inet | sed 's/    //; s/scope global dynamic//g'
+ip a show scope global dynamic | awk '$1 == "inet" {print $2, $4}'
 ```
 
 ### Show most memory intensive process
@@ -37,9 +41,9 @@ ps axch -o cmd:15,%mem --sort=-%mem
 ps axch -o cmd:15,%cpu --sort=-%cpu
 ```
 
-### Show explicit installed packages (from history.log in Ubuntu)
+### Show explicit installed packages
 ```sh
-cat /var/log/apt/history.log | grep install | awk '(NR>1)' | sed 's/[^ ]*//' | sed 's/apt install//g' | sed 's/  //'
+apt-mark showmanual
 ```
 
 ## Sed magic
