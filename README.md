@@ -8,9 +8,10 @@ df -h | awk '/^C:\\/ {print $3 "/" $2}'
 ```
 
 ### Show formatted disk usage for ext4/xfs filesystems
-```
+```sh
 df -h -t ext4 -t xfs | awk '{print $1, $3 "/" $2}' | column -t
 ```
+
 ### Show memory used/total
 ```sh
 free -h | awk '/^Mem:/ {print $3 "/" $2}'
@@ -44,6 +45,11 @@ ps axch -o cmd:15,%cpu --sort=-%cpu
 ### Show explicit installed packages
 ```sh
 apt-mark showmanual
+```
+
+### Show current PATH environment variable
+```sh
+echo $PATH | tr : \\n
 ```
 
 ## Sed magic
@@ -125,4 +131,39 @@ systemctl list-unit-files --state=enabled --no-pager
 ### Extract audio track from Youtube video and store as mp3
 ```sh
 youtube-dl --extract-audio --audio-format mp3 https://ytvideolink
+```
+
+## Nmap magic
+### Scan all of target port using default script, version detection and output the result normally
+```sh
+nmap -sC -sV -p- -oN output-name ip-address
+```
+
+### Enumerate specific port using http-enum script
+```sh
+nmap --script=http-enum -p80 ip-address
+```
+
+## Gobuster magic
+### Search name of the hidden directory on the web server with wordlist.
+```sh
+gobuster dir -u http://ip-address -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+```
+
+## Enum4linux magic
+### Enumerate machine list, group and user list with share list
+```sh
+enum4linux -M -G -S ip-address
+```
+
+## Smbclient magic
+### Mount and connect to the sharename (Anonymous).
+```sh
+smbclient //ip-address/Anonymous
+```
+
+## Hydra magic
+### Bruteforce SSH password with wordlist from known SSH username
+```sh
+hydra -l ssh-username -P /usr/share/wordlists/rockyou.txt ssh://ip-address
 ```
