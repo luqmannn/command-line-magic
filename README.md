@@ -127,6 +127,12 @@ curl -4 https://icanhazip.com
 systemctl list-unit-files --state=enabled --no-pager
 ```
 
+## FFmpeg magic
+### Adding audio to a video without re-encoding
+```{sh}
+ffmpeg -i video_name.mp4 -i audio_name.m4a -c copy -map 0:v -map 1:a output_name.mp4
+```
+
 ## Youtube-dl magic
 ### Extract audio track from Youtube video and store as mp3
 ```sh
