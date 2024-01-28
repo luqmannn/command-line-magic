@@ -2,6 +2,29 @@
 Let's face it, we are mere mortals that keep forgetting everytime we learn something new. So that's why I created this simple cheatsheet. Every time I forget something important, I want to refer back in one single place instead of scouring the Internet for the same answer that I did before. Hope this will help.
 
 ## System magic
+### Passwd
+```sh
+paste <(cat /etc/passwd | cut -d: -f1) <(cat /etc/passwd | cut -d: -f3) <(cat /etc/passwd | cut -d: -f4) <(cat /etc/passwd | cut -d: -f5) | column -s $'\t' -t
+```
+- Show only the username, user id, group id and comment/description from `passwd` file.
+
+### Setfacl
+```sh
+sudo setfacl -R -m u:username:rX /opt/estel/apache-tomcat/logs
+```
+- Grant specific user read only access to the directory, for read and list out all the content in the directory without changing owner and ownership of the directory.
+
+```sh
+sudo setfacl -R -x u:username /opt/estel/apache-tomcat/logs
+```
+- Remove read only access given previously.
+
+### Useradd
+```sh
+sudo useradd -d /home/miku -s /bin/bash -m miku -c "Miku Kuwajima"
+```
+- Add a new user, specifices home directory, default shell, creates home directory for new user if it does not exist and adds a comment/description.
+
 ### Show C: disk usage
 ```sh
 df -h | awk '/^C:\\/ {print $3 "/" $2}'
