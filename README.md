@@ -10,12 +10,12 @@ paste <(cat /etc/passwd | cut -d: -f1) <(cat /etc/passwd | cut -d: -f3) <(cat /e
 
 ### Setfacl
 ```sh
-sudo setfacl -R -m u:username:rX /opt/estel/apache-tomcat/logs
+sudo setfacl -R -m u:username:rX /opt/admin/apache-tomcat/logs
 ```
-- Grant specific user read only access to the directory, for read and list out all the content in the directory without changing owner and ownership of the directory.
+- Grant specific user read only access to the directory belongs to other user, for read and list out all the content in the directory without changing owner and ownership of the directory.
 
 ```sh
-sudo setfacl -R -x u:username /opt/estel/apache-tomcat/logs
+sudo setfacl -R -x u:username /opt/admin/apache-tomcat/logs
 ```
 - Remove read only access given previously.
 
