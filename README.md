@@ -1,3 +1,47 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Introduction](#introduction)
+   * [System magic](#system-magic)
+      + [Passwd](#passwd)
+      + [Df](#df)
+      + [Free](#free)
+      + [Find](#find)
+      + [Du](#du)
+      + [Ps](#ps)
+      + [Apt-mark](#apt-mark)
+      + [Echo](#echo)
+      + [Systemctl](#systemctl)
+   * [User management magic](#user-management-magic)
+      + [Useradd](#useradd)
+      + [Setfacl](#setfacl)
+   * [LVM and disk management magic](#lvm-and-disk-management-magic)
+      + [Fdisk](#fdisk)
+      + [Pvcreate](#pvcreate)
+      + [Vgcreate](#vgcreate)
+      + [Lvcreate](#lvcreate)
+      + [Mkfs](#mkfs)
+      + [Mount](#mount)
+      + [Fstab](#fstab)
+      + [Umount](#umount)
+   * [Network magic](#network-magic)
+      + [Ip](#ip)
+      + [Curl](#curl)
+   * [Text and data manipulation magic](#text-and-data-manipulation-magic)
+      + [Sed](#sed)
+      + [Awk](#awk)
+      + [Grep](#grep)
+   * [Multimedia magic](#multimedia-magic)
+      + [FFmpeg](#ffmpeg)
+      + [Yt-dlp](#yt-dlp)
+   * [Security magic](#security-magic)
+      + [Nmap](#nmap)
+      + [Gobuster](#gobuster)
+      + [Enum4linux ](#enum4linux)
+      + [Smbclient](#smbclient)
+      + [Hydra](#hydra)
+
+<!-- TOC end -->
+
 # Introduction
 Let's face it, we are mere mortals that keep forgetting everytime we learn something new. So that's why I created this simple cheatsheet. Every time I forget something important, I want to refer back in one single place instead of scouring the Internet for the same answer that I did before. Hope this will help.
 
