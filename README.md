@@ -1,49 +1,58 @@
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Introduction](#introduction)
-   * [System magic](#system-magic)
-      + [Passwd](#passwd)
-      + [Df](#df)
-      + [Free](#free)
-      + [Find](#find)
-      + [Du](#du)
-      + [Ps](#ps)
-      + [Apt-mark](#apt-mark)
-      + [Echo](#echo)
-      + [Systemctl](#systemctl)
-   * [User management magic](#user-management-magic)
-      + [Useradd](#useradd)
-      + [Setfacl](#setfacl)
-   * [LVM and disk management magic](#lvm-and-disk-management-magic)
-      + [Fdisk](#fdisk)
-      + [Pvcreate](#pvcreate)
-      + [Vgcreate](#vgcreate)
-      + [Lvcreate](#lvcreate)
-      + [Mkfs](#mkfs)
-      + [Mount](#mount)
-      + [Fstab](#fstab)
-      + [Umount](#umount)
-   * [Network magic](#network-magic)
-      + [Ip](#ip)
-      + [Curl](#curl)
-   * [Text and data manipulation magic](#text-and-data-manipulation-magic)
-      + [Sed](#sed)
-      + [Awk](#awk)
-      + [Grep](#grep)
-   * [Multimedia magic](#multimedia-magic)
-      + [FFmpeg](#ffmpeg)
-      + [Yt-dlp](#yt-dlp)
-   * [Security magic](#security-magic)
-      + [Nmap](#nmap)
-      + [Gobuster](#gobuster)
-      + [Enum4linux ](#enum4linux)
-      + [Smbclient](#smbclient)
-      + [Hydra](#hydra)
-
-<!-- TOC end -->
-
 # Introduction
 Let's face it, we are mere mortals that keep forgetting everytime we learn something new. So that's why I created this simple cheatsheet. Every time I forget something important, I want to refer back in one single place instead of scouring the Internet for the same answer that I did before. Hope this will help.
+
+I plan to use this repo as sort of my knowledge base notes and it will continue to grow larger from now on. Need to restructure this repo since there's so many new tools I need to use such as Openstack and Openshift. Maybe a new separate new repo for both of this tool since it is very powerful and capable to create entirely new infrastructure and deployment place for application from scratch.
+
+- [Introduction](#introduction)
+  - [System magic](#system-magic)
+    - [Passwd](#passwd)
+    - [Df](#df)
+    - [Free](#free)
+    - [Find](#find)
+    - [Du](#du)
+    - [Ps](#ps)
+    - [Apt-mark](#apt-mark)
+    - [Echo](#echo)
+    - [Systemctl](#systemctl)
+  - [User management magic](#user-management-magic)
+    - [Useradd](#useradd)
+    - [Setfacl](#setfacl)
+    - [Getfacl](#getfacl)
+    - [Usermod](#usermod)
+  - [LVM and disk management magic](#lvm-and-disk-management-magic)
+    - [Fdisk](#fdisk)
+    - [Pvcreate](#pvcreate)
+    - [Vgcreate](#vgcreate)
+    - [Lvcreate](#lvcreate)
+    - [Mkfs](#mkfs)
+    - [Mount](#mount)
+    - [Fstab](#fstab)
+    - [Umount](#umount)
+  - [Network magic](#network-magic)
+    - [Ip](#ip)
+    - [Curl](#curl)
+  - [Text and data manipulation magic](#text-and-data-manipulation-magic)
+    - [Sed](#sed)
+    - [Awk](#awk)
+    - [Grep](#grep)
+  - [Multimedia magic](#multimedia-magic)
+    - [FFmpeg](#ffmpeg)
+    - [Yt-dlp](#yt-dlp)
+  - [Security magic](#security-magic)
+    - [Nmap](#nmap)
+    - [Gobuster](#gobuster)
+    - [Enum4linux](#enum4linux)
+    - [Smbclient](#smbclient)
+    - [Hydra](#hydra)
+  - [Openstack magic](#openstack-magic)
+    - [Provision new disk to a server](#provision-new-disk-to-a-server)
+    - [Poweroff hypervisor host](#poweroff-hypervisor-host)
+    - [Check server, network and subnet details](#check-server-network-and-subnet-details)
+    - [Check image, volume and flavour details](#check-image-volume-and-flavour-details)
+
+<!-- TOC end -->
 
 ## System magic
 ### Passwd
@@ -113,20 +122,33 @@ systemctl list-unit-files --state=enabled --no-pager
 ## User management magic
 ### Useradd
 ```sh
-sudo useradd -d /home/miku -s /bin/bash -m miku -c "Miku Kuwajima"
+sudo useradd -d /home/miku -s /bin/bash -m miku -c "Add comment"
 ```
 - Add a new user, specifices home directory, default shell, creates home directory for new user if it does not exist and adds a comment/description.
+- This is the long way, can be done much faster using `adduser` :P
 
 ### Setfacl
 ```sh
-sudo setfacl -R -m u:username:rX /opt/admin/tomcat/logs
+sudo setfacl -R -m u:username:rX /var/logs
 ```
 - Grant specific user read only access to the directory belongs to other user, for read and list out all the content in the directory without changing owner and ownership of the directory.
 
 ```sh
-sudo setfacl -R -x u:username /opt/admin/tomcat/logs
+sudo setfacl -R -x u:username /var/logs
 ```
-- Remove read only access given previously.
+- Remove ACL access given previously.
+
+### Getfacl
+```sh
+getfacl /var/logs
+```
+- Check the directory whether it has user set by setfacl
+
+### Usermod
+```sh
+usermod -aG admin miku
+```
+- Modify the user by adding it to group admin.
 
 ## LVM and disk management magic
 ### Fdisk
@@ -321,3 +343,56 @@ smbclient //ip-address/Anonymous
 hydra -l ssh-username -P /usr/share/wordlists/rockyou.txt ssh://ip-address
 ```
 - Bruteforce SSH password with wordlist from known SSH username.
+
+## Openstack magic
+### Provision new disk to a server
+```sh
+source <rc-file-download-from-osp-project>
+openstack server list --fit
+openstack server show <server-id> --fit
+```
+
+```sh
+openstack volume list --fit
+openstack volume create --size <num> <volume-disk-anyname>
+openstack volume list --fit
+```
+
+```sh
+openstack server add volume <server-id> <volume-id>
+openstack server show <server-id> --fit
+```
+
+### Poweroff hypervisor host
+```sh
+source overcloudrc
+openstack hypervisor list --fit | grep <hypervisor-host>
+openstack server list --all-project --host <hypervisor-host> --fit
+```
+
+```sh
+source stackrc
+openstack baremetal node list --fit | grep <hostname>
+openstack baremetal node show <hostname> --fit
+openstack server list --fit | grep <hostname>
+```
+
+```sh
+ssh user@ip-from-previous-command
+sudo su -
+shutdown now
+```
+
+### Check server, network and subnet details
+```sh
+openstack server list --fit
+openstack network list --fit
+openstack subnet list --fit
+```
+
+### Check image, volume and flavour details
+```sh
+openstack image list --fit
+openstack volume list --fit
+openstack flavour list --fit
+```
