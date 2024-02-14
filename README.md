@@ -3,7 +3,7 @@
 # Introduction
 Let's face it, we are mere mortals that keep forgetting everytime we learn something new. So that's why I created this simple cheatsheet. Every time I forget something important, I want to refer back in one single place instead of scouring the Internet for the same answer that I did before. Hope this will help.
 
-I plan to use this repo as sort of my knowledge base notes and it will continue to grow larger from now on. Need to restructure this repo since there's so many new tools I need to use such as Openstack and Openshift. Maybe a new separate new repo for both of this tool since it is very powerful and capable to create entirely new infrastructure and deployment place for application from scratch.
+I plan to use this repo as sort of my knowledge base notes and it will continue to grow larger from now on. Need to restructure this repo since there's so many new tools I need to use such as Openstack and Openshift. Maybe a separate new repo for both of this tool since it is very powerful and capable to create entirely new infrastructure and deployment place for application from scratch.
 
 - [Introduction](#introduction)
   - [System magic](#system-magic)
